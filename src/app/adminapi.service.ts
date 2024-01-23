@@ -10,7 +10,7 @@ export class AdminapiService {
 
   constructor(private http:HttpClient) { }
 
-  server_url="http://localhost:3000"
+  server_url="https://empbacknd.onrender.com"
   
   public sharedData = new BehaviorSubject(false)
 
