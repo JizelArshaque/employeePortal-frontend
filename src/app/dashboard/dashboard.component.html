@@ -1,9 +1,72 @@
 <div class="d-flex">
-    <div class="sidebar d-flex flex-column p-3" style="height: 90vh;width: 250px; background-color: rgb(99, 173, 200);" >
+    <div *ngIf="sideBar" class="sidebar d-flex flex-column p-3" style="height: 92vh;width: 250px; background-color: rgb(99, 173, 200);" >
         <a routerLink="/dashboard" class=" ms-3" style="text-decoration: none; color: whitesmoke; margin-top: 20px;">Home</a>
         <a routerLink="/employees" class="ms-3" style="text-decoration: none; color: whitesmoke; margin-top: 20px;">Users</a>
     </div>
-    <div class="dashboard p-3" >
-        <h2 class="text-info">Welcome,</h2>
+    <div class="dashboard p-3 w-100" style="height: 88vh;" >
+        
+        <div class="row w-100">
+            <div class="col-md-8">
+                <div class="row w-100">
+                    <div class="col-md-12 rounded d-flex align-items-center ms-3" style="background-color:aqua; height: 150px;">
+                        <h2 > <i (click)="menuBar()" class="fa-solid fa-bars me-3"></i> Welcome {{Aname}}</h2>
+                    </div>
+                </div>
+
+                <div class="row mt-3 m-3" style="height: 320px;">
+                    <div class="col-md-5 shadow rounded ">
+                        <p class="mb-3 mt-3 ">Calender</p>
+                        <mat-card class="demo-inline-calendar-card">
+                            <mat-calendar [(selected)]="selected"></mat-calendar>
+                          </mat-card>
+                    </div>
+                    <!-- <div class="col-md-1"></div> -->
+                    <div class="col-md-7 shadow rounded " style="width: 360px;">
+                        
+                        <highcharts-chart
+                            [Highcharts]="Highcharts"
+                            [options]="chartOptions"                           
+                            style="width: 100%; height: 400px; display: block;"
+                            ></highcharts-chart>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6"></div>
+                </div>
+            </div>
+
+
+            <div class="col-md-4" >
+
+                <div class="rounded p-3 d-flex align-items-center flex-column justify-content-center w-100" style="height: 400px; background-color: aquamarine;">
+                    <img  *ngIf="!editAdminS" [src]="profImage" alt="" height="150px" width="150px" style="border-radius: 50%;">
+                    <button *ngIf="!editAdminS" (click)="edit()" class="btn">Edit admin details <i class="fa-solid fa-pencil"></i></button>
+
+                    <div *ngIf="editAdminS" class="d-flex align-items-center flex-column justify-content-center w-100">
+                        <h1>Update Admin details</h1>
+                        <label>
+                            <input (change)="getfile($event)" type="file" style="display: none;">
+                            <img [src]="profImage" alt="" height="150px" width="150px" style="border-radius: 50%;">
+                        </label>
+                        <input type="text" placeholder="name" class="form-control mt-2" [(ngModel)]="AdminDets.name" name="username">
+                        <input  type="text" placeholder="password" class="form-control mt-2" [(ngModel)]="AdminDets.password"  name="password">
+                        <div *ngIf="editAdminS" class="d-flex justify-content-between mt-5 w-100">
+                            <button class="btn btn-outline-warning" (click)="cancel()">Cancel</button>
+                            <button  class="btn btn-outline-success" (click)="Updatess()">Update</button>
+    
+                        </div>
+                    </div>
+
+
+                </div>
+
+               
+
+                <div class="rounded mt-1 d-flex align-items-center justify-content-center" style="height: 150px; background-color: yellowgreen;">
+                    <h1> <i class="fa-solid fa-users"></i>Employees: {{employeeCount}}</h1>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

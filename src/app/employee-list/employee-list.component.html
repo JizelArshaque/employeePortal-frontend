@@ -5,10 +5,6 @@
     </div>
     <div class="p-3 w-100" >
         <!-- LIST -->
-
-
-
-
         <div class="d-flex justify-content-between " >
             <h2 style="color: rgb(99, 173, 200);;">Users List </h2>
             <button class="btn btn-outline-secondary" type="submit"> 
@@ -20,27 +16,20 @@
 
         <div class="d-flex justify-content-center align-items-center flex-column mt-5">
             <div class="d-flex w-75">
-                <input type="text" class="form-control me-2" placeholder="Username">
-                <div class="dropdown w-100">
-                    <button class="btn btn-secondary dropdown-toggle" type="button"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                        sort
-
+                <input type="text" class="form-control me-2" placeholder="Username"  name="search" [(ngModel)]="searchKey">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                      Sort
                     </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#" class="dropdown-item">Action</a></li>
-                        <li><a href="#" class="dropdown-item">Another One</a></li>
-                        <li><a href="#" class="dropdown-item">Something ELse</a></li>
-
-
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li><a class="dropdown-item" (click)="sort()" >By Id</a></li>
+                      <li><a class="dropdown-item" (click)="sortN()" >By Name</a></li>
+                      
                     </ul>
-
-                </div>
-                
-
+                  </div>
             </div>
 
-            <button class="btn btn-success mt-5" >Export</button>
+            <button class="btn btn-success mt-5" (click)="generatepdf()" >Export</button>
 
             <table class="table table-bordered border-primary shadow m-5 rounded">
                 <thead>
@@ -53,25 +42,29 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="text-center">1</td>
-                        <td class="text-center">Neel</td>
-                        <td class="text-center">NEEl@gmail.com</td>
-                        <td class="text-center">active</td>
+                    <tr *ngFor="let employee of allEmployee | search : searchKey | paginate: {itemsPerPage: 4, currentPage: p}"
+                    [hidden]="employee.id=='1'">
+                        <td class="text-center" >{{employee.id}}</td>
+                        <td class="text-center">{{employee.name}}</td>
+                        <td class="text-center">{{employee.email}}</td>
+                        <td class="text-center" ><span [ngClass]="employee.status == '1'?'btn btn-success':'btn btn-warning'">{{employee.status=="1"?"Active":"Inactive"}}</span></td>
                         <td class="text-center">
-                            <a routerLink="/employee/edit/1"> <i class="fa-solid fa-pen"></i></a>
-                            <a href="de"> <i class="fa-solid fa-trash ms-3 text-danger"></i></a>
-
+                            <a routerLink="/employee/edit/{{employee.id}}"> <i class="fa-solid fa-pen"></i></a>
+                            <a routerLink="/employees" (click)="delete(employee.id)"> <i class="fa-solid fa-trash ms-3 text-danger"></i></a>
                         </td>
                     </tr>
                 </tbody>
             </table>
 
+            <!-- pagination -->
 
+            <pagination-controls (pageChange)="p=$event">
+                
+            </pagination-controls>
 
         </div>
-
-
-
     </div>
 </div>
+
+
+

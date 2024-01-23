@@ -15,36 +15,36 @@
 
                     <form class="border shadow mt-5 p-5 w-75" style="background-image: linear-gradient(to right , rgb(99, 173, 200),white );" >
                         <div class="mb-3">
-                            <input type="number" placeholder="User Id" class="form-control">
+                            <input type="text" placeholder="User Id" class="form-control"  name="empid" [(ngModel)]="employee.id" #employeeid="ngModel" disabled >
+
+                            <span class="text-danger" *ngIf="employeeid.invalid && employeeid.touched">Inavlid Id</span>
+                        </div>
+
+
+                        <div class="mb-3">
+                            <input type="text" placeholder="Username" class="form-control"  name="empname" [(ngModel)]="employee.name" #employeename="ngModel" required >
+                            <span class="text-danger" *ngIf="employeename.invalid && employeename.touched">Inavlid Username</span>
                         </div>
                         <div class="mb-3">
-                            <input type="text" placeholder="Username" class="form-control">
-                        </div>
-                        <div class="mb-3">
-                            <input type="email" placeholder="Email" class="form-control">
+                            <input type="text" placeholder="Email" class="form-control" name="empmail" [(ngModel)]="employee.email" #employeeemail="ngModel" email required>
+                            <span class="text-danger" *ngIf="employeeemail.invalid && employeeemail.touched">Inavlid Email</span>
                         </div>
                         <div class="form-floating">
-                            <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                            <select class="form-select" id="floatingSelect" aria-label="Floating label select example " name="empstatus" [(ngModel)]="employee.status" #employeestatus="ngModel" required>
+                                
                               <option selected></option>
                               <option value="1">Active</option>
                               <option value="0">Inactive</option>
                               
                             </select>
                             <label for="floatingSelect">Status</label>
+                            <span class="text-danger" *ngIf="employeestatus.invalid && employeestatus.touched">Inavlid Status</span>
                         </div>
                         <div class=" mb-3 mt-3">
-                            <button type="button" class="btn btn-warning">Cancel</button>
-                            <button type="button" class="btn btn-success ms-3"> Update</button>
+                            <button (click)="cancelF()" class="btn btn-warning">Cancel</button>
+                            <button (click)="update(employee.id)"   class="btn btn-success ms-3"> Update</button>
                         </div>
                     </form>
-
-
-
-
-
-
-
-
     </div>
 </div>
 

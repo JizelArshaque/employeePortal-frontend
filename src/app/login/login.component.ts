@@ -24,8 +24,17 @@ export class LoginComponent {
   
           if(email==this.email && password==this.password){
             Swal.fire("Login successful");
+
+            // update shared data
+            this.api.updatelogs({data:true})
+
+            // Save data in localstorage for admin dets
+            localStorage.setItem("name",res.name)
+            localStorage.setItem("password",res.password)
             // navigate
             this.router.navigateByUrl('dashboard')
+
+            
 
           }else{
             Swal.fire("Invalid Credentials!")
